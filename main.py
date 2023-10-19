@@ -1,29 +1,28 @@
-import shutil
-from src import helpers
+from tkinter import *
+from src import handlers
 
 
 def main():
-    print('Подготовка процесса...')
-    today_file, today_cell = helpers.get_today('_', '.')
-    new_file_name, desktop = helpers.change_file_name(today_file)
-    file_date, total_before, total_before_cash = helpers.get_cell(new_file_name)
+    root = Tk()
+    root.title("MARKET")
+    root.iconbitmap(default="src/favicon.ico")
+    root.geometry("1000x500")
 
-    print('Обновление и запись котировок в файл...')
-    data = helpers.upload_data()
-    report, counter = helpers.write_data(new_file_name, today_cell, data)
-    print(f'Обновлено {counter} котировок!')
+    root.rowconfigure(0, minsize=800, weight=1)
+    root.columnconfigure(1, minsize=800, weight=1)
 
-    print('Ценовые изменения на пять и более процентов:')
-    helpers.get_analytics(report)
+    txt_edit = Text(root)
+    fr_buttons = Frame(root)
+    btn_open = Button(fr_buttons, text="Обновить котировки", command=lambda: handlers.update_quotes(txt_edit, END))
+    btn_save = Button(fr_buttons, text="Загрузить файл", command=lambda: handlers.upload_file(txt_edit, END))
 
-    print('Изменения в Total:')
-    total_after = helpers.get_total(new_file_name, 'C439')
-    total_difference = total_after - total_before
-    helpers.data_print(file_date, total_before, today_cell, total_after,
-                       total_difference, total_before_cash)
+    btn_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+    btn_save.grid(row=1, column=0, sticky="ew", padx=5)
 
-    shutil.copy(new_file_name, desktop)
-    print('Обновленный файл находится на рабочем столе!')
+    fr_buttons.grid(row=0, column=0, sticky="ns")
+    txt_edit.grid(row=0, column=1, sticky="nsew")
+
+    root.mainloop()
 
 
 if __name__ == '__main__':

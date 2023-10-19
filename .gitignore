@@ -7,8 +7,9 @@ __pycache__/
 # C extensions
 *.so
 
-# xlsx extension
+# extension
 *.xlsx
+*.ico
 
 # PyCharm
 .idea/

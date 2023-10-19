@@ -13,12 +13,9 @@ def get_today(*args):
     return today_file, today_cell
 
 
-def change_file_name(today_file):
+def change_file_name(new_file_name):
     current_file = glob.glob('*.xlsx')[0]
-    new_file_name = f'Portfolio_{today_file}.xlsx'
     os.rename(current_file, new_file_name)
-    desktop = os.path.expanduser(f'~/Desktop/{new_file_name}')
-    return new_file_name, desktop
 
 
 def get_cell(file_name):
@@ -77,15 +74,17 @@ def get_margin(cur_close, pre_close):
         return '0'
 
 
-def get_analytics(report_list):
+def get_analytics(report_list, txt_edit, END):
     for elem in report_list:
         elem['margin'] = get_margin(elem['current_price'], elem['previous_close'])
         if int(elem['margin']) >= 5:
-            print(f"{elem['symbol']}: {round(elem['current_price'], 2)}{elem['currency']} "
-                  f"({round(elem['previous_close'], 2)}{elem['currency']}) ↑ рост +{elem['margin']}%")
+            text = f"{elem['symbol']}: {round(elem['current_price'], 2)}{elem['currency']} " \
+                   f"({round(elem['previous_close'], 2)}{elem['currency']}) ↑ рост +{elem['margin']}%\n"
+            txt_edit.insert(END, text)
         elif int(elem['margin']) <= -5:
-            print(f"{elem['symbol']}: {round(elem['current_price'], 2)}{elem['currency']} "
-                  f"({round(elem['previous_close'], 2)}{elem['currency']}) ↓ падение {elem['margin']}%")
+            text = f"{elem['symbol']}: {round(elem['current_price'], 2)}{elem['currency']} " \
+                   f"({round(elem['previous_close'], 2)}{elem['currency']}) ↓ падение {elem['margin']}%\n"
+            txt_edit.insert(END, text)
 
 
 def get_total(file_name, cell):
@@ -97,9 +96,8 @@ def get_total(file_name, cell):
     return round(total, 2)
 
 
-def data_print(file_date, total_before, today_cell, total_after,
-               total_difference, total_before_cash):
-    print(f'Total ({file_date}) —> {total_before}')
-    print(f'Total ({today_cell}) —> {total_after}')
-    print(f'Разница —> {round(total_difference, 2)}')
-    print(f'Total + Cash ({file_date}) —> {round(total_before_cash, 2)}')
+def data_print(*args):
+    args[6].insert(args[7], f'Total ({args[0]}) —> {args[1]}\n')
+    args[6].insert(args[7], f'Total ({args[2]}) —> {args[3]}\n')
+    args[6].insert(args[7], f'Разница —> {round(args[4], 2)}\n')
+    args[6].insert(args[7], f'Total + Cash ({args[0]}) —> {round(args[5], 2)}\n')
