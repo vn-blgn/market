@@ -30,6 +30,8 @@ def update_quotes(txt_edit, END):
         txt_edit.insert(END, 'Обновленный файл находится на рабочем столе!\n')
     except requests.ConnectionError:
         txt_edit.insert(END, 'Проверьте подключение к интернету!\n')
+    except requests.HTTPError:
+        txt_edit.insert(END, 'У Yahoo проблемы, попробуйте чуть позже!\n')
 
 
 def upload_file(txt_edit, END):
