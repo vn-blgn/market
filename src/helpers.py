@@ -23,8 +23,8 @@ def get_cell(file_name):
     xlsx_book = app.books.open(file_name)
     sheet = xlsx_book.sheets['Portfolio']
     file_date = sheet['A1'].value
-    total_before = round(sheet['C439'].value, 2)
-    total_before_cash = round(sheet['C473'].value, 2)
+    total_before = round(sheet['C440'].value, 2)
+    total_before_cash = round(sheet['C474'].value, 2)
     xlsx_book.close()
     return file_date, total_before, total_before_cash
 
@@ -53,14 +53,38 @@ def get_values(data, ws):
     return report, counter
 
 
+def get_values2(data, ws):
+    counter = 0
+    report = []
+    pay_attention = []
+    for elem in data:
+        stock_info = elem[1].fast_info
+        symbol = elem[0]
+        current_price = stock_info['last_price']
+        currency = stock_info['currency']
+        prev_close = stock_info['regularMarketPreviousClose']
+        pay_attention.append(symbol) if str(prev_close) == 'nan' else None
+        previous_close = prev_close if str(prev_close) != 'nan' else stock_info['previousClose']
+        counter += 1
+        cell = ts.get(symbol)
+        ws[cell] = current_price
+        symbols = {'symbol': symbol, 'current_price': current_price,
+                   'previous_close': previous_close, 'currency': currency}
+        report.append(symbols)
+    return report, counter, pay_attention
+
+
 def write_data(new_file_name, today_cell, data):
     wb = load_workbook(new_file_name)
     ws = wb['Portfolio']
     ws['A1'] = today_cell
     report, counter = get_values(data, ws)
+    # if the get_values(data, ws) function will not work, use get_values2(data, ws) function below
+    # report, counter, pay_attention = get_values2(data, ws)
     wb.save(new_file_name)
     wb.close()
     return report, counter
+    # return report, counter, pay_attention
 
 
 def get_margin(cur_close, pre_close):
@@ -101,3 +125,8 @@ def data_print(*args):
     args[6].insert(args[7], f'Total ({args[2]}) —> {args[3]}\n')
     args[6].insert(args[7], f'Разница —> {round(args[4], 2)}\n')
     args[6].insert(args[7], f'Total + Cash ({args[0]}) —> {round(args[5], 2)}\n')
+
+
+def pay_attention_print(pay_attention, txt_edit, END):
+    pay_attention_text = ', '.join(pay_attention)
+    txt_edit.insert(END, f'ВНИМАНИЕ!: цена последнего закрытия {pay_attention_text} может быть не корректной!\n')
