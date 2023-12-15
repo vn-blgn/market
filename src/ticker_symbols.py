@@ -35,21 +35,20 @@ ticker_symbols = {
     'SLDB': 'H176',
     'PARA': 'H183',
     'COIN': 'H195',
-    'BA': 'H204',
-    'CCL': 'H214',
-    'CVAC': 'H217',
-    'LVS': 'H238',
-    'SRNEQ': 'H244',
-    'SPCE': 'H246',
-    'BNTX': 'H265',
-    'NVAX': 'H274',
-    'SNAP': 'H286',
-    'MRNA': 'H294',
-    'AMC': 'H329',
-    '1810.HK': 'H337'
+    'CCL': 'H213',
+    'CVAC': 'H216',
+    'LVS': 'H237',
+    'SRNEQ': 'H243',
+    'SPCE': 'H245',
+    'BNTX': 'H263',
+    'NVAX': 'H272',
+    'SNAP': 'H284',
+    'MRNA': 'H292',
+    'AMC': 'H327',
+    '1810.HK': 'H335'
 }
 
 tickers = 'CARS INO VXRT NHWK NKLA NIO PLTK QS RLX ROOT AYX ACB CGC \
            GLPG IRTC SEER SPOT SNDL TLRY ABNB AMWL DNMR OPK PLTR QDEL \
-           TWST LMND PAAS TDOC AAL ARRY IMAX SKLZ SLDB PARA COIN BA CCL \
+           TWST LMND PAAS TDOC AAL ARRY IMAX SKLZ SLDB PARA COIN CCL \
            CVAC LVS SRNEQ SPCE BNTX NVAX SNAP MRNA AMC 1810.HK'

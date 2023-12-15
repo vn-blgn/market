@@ -23,8 +23,8 @@ def get_cell(file_name):
     xlsx_book = app.books.open(file_name)
     sheet = xlsx_book.sheets['Portfolio']
     file_date = sheet['A1'].value
-    total_before = round(sheet['C440'].value, 2)
-    total_before_cash = round(sheet['C474'].value, 2)
+    total_before = round(sheet['C438'].value, 2)
+    total_before_cash = round(sheet['C472'].value, 2)
     xlsx_book.close()
     return file_date, total_before, total_before_cash
 
@@ -78,13 +78,13 @@ def write_data(new_file_name, today_cell, data):
     wb = load_workbook(new_file_name)
     ws = wb['Portfolio']
     ws['A1'] = today_cell
-    report, counter = get_values(data, ws)
+    # report, counter = get_values(data, ws)
     # if the get_values(data, ws) function will not work, use get_values2(data, ws) function below
-    # report, counter, pay_attention = get_values2(data, ws)
+    report, counter, pay_attention = get_values2(data, ws)
     wb.save(new_file_name)
     wb.close()
-    return report, counter
-    # return report, counter, pay_attention
+    # return report, counter
+    return report, counter, pay_attention
 
 
 def get_margin(cur_close, pre_close):

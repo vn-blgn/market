@@ -14,22 +14,22 @@ def update_quotes(txt_edit, END):
         file_date, total_before, total_before_cash = helpers.get_cell(new_file_name)
 
         data = helpers.upload_data()
-        report, counter = helpers.write_data(new_file_name, today_cell, data)
-        # report, counter, pay_attention = helpers.write_data(new_file_name, today_cell, data)
+        # report, counter = helpers.write_data(new_file_name, today_cell, data)
+        report, counter, pay_attention = helpers.write_data(new_file_name, today_cell, data)
         txt_edit.insert(END, f'Обновлено {counter} котировок!\n')
 
         txt_edit.insert(END, 'Ценовые изменения на пять и более процентов:\n')
         helpers.get_analytics(report, txt_edit, END)
 
         txt_edit.insert(END, 'Изменения в Total:\n')
-        total_after = helpers.get_total(new_file_name, 'C440')
+        total_after = helpers.get_total(new_file_name, 'C438')
         total_difference = total_after - total_before
         helpers.data_print(file_date, total_before, today_cell, total_after,
                            total_difference, total_before_cash, txt_edit, END)
 
         shutil.copy(new_file_name, desktop)
         txt_edit.insert(END, 'Обновленный файл находится на рабочем столе!\n')
-        # helpers.pay_attention_print(pay_attention, txt_edit, END) if pay_attention else None
+        helpers.pay_attention_print(pay_attention, txt_edit, END) if pay_attention else None
     except requests.ConnectionError:
         txt_edit.insert(END, 'Проверьте подключение к интернету!\n')
     except requests.HTTPError:
