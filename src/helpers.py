@@ -23,8 +23,8 @@ def get_cell(file_name):
     xlsx_book = app.books.open(file_name)
     sheet = xlsx_book.sheets['Portfolio']
     file_date = sheet['A1'].value
-    total_before = round(sheet['C438'].value, 2)
-    total_before_cash = round(sheet['C472'].value, 2)
+    total_before = round(sheet['C435'].value, 2)
+    total_before_cash = round(sheet['C470'].value, 2)
     xlsx_book.close()
     return file_date, total_before, total_before_cash
 

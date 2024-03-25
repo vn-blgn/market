@@ -22,7 +22,7 @@ def update_quotes(txt_edit, END):
         helpers.get_analytics(report, txt_edit, END)
 
         txt_edit.insert(END, 'Изменения в Total:\n')
-        total_after = helpers.get_total(new_file_name, 'C438')
+        total_after = helpers.get_total(new_file_name, 'C435')
         total_difference = total_after - total_before
         helpers.data_print(file_date, total_before, today_cell, total_after,
                            total_difference, total_before_cash, txt_edit, END)
