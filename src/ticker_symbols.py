@@ -2,7 +2,7 @@ ticker_symbols = {
     'CARS': 'H28',
     'INO': 'H36',
     'VXRT': 'H38',
-    'NHWK': 'H42',
+    'SCPX': 'H42',
     'NKLA': 'H50',
     'NIO': 'H66',
     'PLTK': 'H69',
@@ -47,7 +47,9 @@ ticker_symbols = {
     '1810.HK': 'H332'
 }
 
-tickers = 'CARS INO VXRT NHWK NKLA NIO PLTK QS RLX ROOT ACB CGC \
+tickers = 'CARS INO VXRT SCPX NKLA NIO PLTK QS RLX ROOT ACB CGC \
            GLPG IRTC SEER SPOT SNDL TLRY ABNB AMWL DNMR OPK PLTR QDEL \
            TWST LMND PAAS TDOC AAL ARRY IMAX SKLZ SLDB PARA COIN CCL \
            CVAC LVS SRNEQ SPCE BNTX NVAX SNAP MRNA AMC 1810.HK'
+
+# NHWK 4 Scorpius Holdings с новым тикерным символом SCPX
